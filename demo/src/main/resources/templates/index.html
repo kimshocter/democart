@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<ul th:replace="fragments/header ::navigation"></ul>
+	<h2>
+		Tong tien <span th:text="${session.gioHang.total}"></span>
+	</h2>
+	<table border="1">
+		<thead>
+			<tr>
+				<td>#</td>
+				<td>name</td>
+				<td>price</td>
+				<td>quantity</td>
+				<td>subtotal</td>
+				<td>remove</td>
+
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="item : ${session.gioHang.total}">
+				<td th:text="${item.product.id}"></td>
+				<td th:text="${item.product.name}"></td>
+				<td th:text="${item.product.price}"></td>
+				<td><form action="#" th:acction="@{/cart/update}" method="post">
+						<input type="hidden" th:value="${item.product.id}"> <input
+							type="submit" min="1" th:value="${item.quantity}" name="qty">
+						<button type="submit">Update</button>
+
+					</form></td>
+				<td th:text="${item.subTotal}"></td>
+				<td><form action="#" th:action="@{/cart/remove}" method="post">
+						<input type="hidden" th:value="${item.product.id}" name="id">
+						<button type="submit">Remove</button>
+					</form></td>
+
+				<td th:text="${item.product.id}"></td>
+		</tbody>
+	</table>
+</body>
+</html>
